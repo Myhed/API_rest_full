@@ -1,6 +1,5 @@
-const mongoose = require('mongoose');
 const User = require('./user')
-const interation = {
+const interaction = {
 	addUser: (name,email,password) => {
 		return new Promise((reject,resolve) => {
 			User.create({
@@ -9,10 +8,9 @@ const interation = {
 				password:password
 			},function(err,user){
 				if(err){
-					res.status(500).send('There was a problem adding information to the database')
 					reject(err);
 				}
-				resolve(res.status(200).send(user));
+				resolve(users);
 			});
 
 		});
@@ -21,8 +19,10 @@ const interation = {
 		return new Promise((reject,resolve) => {
 			User.find({},(err,users) => {
 				if(err) reject(err);
-				resolve(res.status(200).send(user));
+				resolve(users);
 			})
 		});
 	}
 }
+
+module.exports = interaction

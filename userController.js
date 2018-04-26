@@ -6,10 +6,17 @@ router.use(bodyParser.json());
 const interactionDB = require('./dbInteraction');
 
 router.post('/',(req,res) => {
-	interactionDB.addUser(req.body.name,req.body.email,req.body.password);
+	interactionDB.addUser(req.body.name,req.body.email,req.body.password).then((res) => {
+		console.log(res);
+		return res;
+	});
 });
 
 router.get('/',(req,res) => {
-	
+	interactionDB.findAllUser().then(response => {
+		res.status(200).send(response);
+	}).catch(e => {
+		res.status(500).send('Error is here')
+	});
 });
 module.exports = router;
